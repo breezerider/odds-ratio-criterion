@@ -1,13 +1,9 @@
-[paths]
-source =
-   src
-   */site-packages
-
 [run]
 branch = true
-source =
-    odds_ratio_criterion
+source = src
+omit =
     tests
+    *__init__.py
 parallel = true
 plugins = Cython.Coverage
 

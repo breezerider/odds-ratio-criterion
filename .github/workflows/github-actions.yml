@@ -166,3 +166,23 @@ jobs:
       if: matrix.cibw_build
       with:
         path: wheelhouse/*.whl
+  coverage:
+    runs-on: ubuntu-latest
+    environment: codecov
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -mpip install --progress-bar=off .
+          python -mpip install --progress-bar=off Cython pytest pytest-cov
+      - name: Run tests and collect coverage
+        run: pytest --cov odds_ratio_criterion
+      - name: Upload coverage to Codecov
+        env:
+          CODECOV_TOKEN: '${{ secrets.CODECOV_TOKEN }}'
+        uses: codecov/codecov-action@v3
