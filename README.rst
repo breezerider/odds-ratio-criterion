@@ -27,21 +27,21 @@ Overview
     :alt: Coverage Status
     :target: https://codecov.io/github/breezerider/odds-ratio-criterion
 
-.. |version| image:: https://img.shields.io/pypi/v/odds-ratio-criterion.svg
+.. |version| image:: https://img.shields.io/badge/test.pypi-v0.1.0-green?style=flat
     :alt: PyPI Package latest release
-    :target: https://pypi.org/project/odds-ratio-criterion
+    :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/odds-ratio-criterion.svg
+.. |wheel| image:: https://img.shields.io/badge/wheel-no-red?style=flat
     :alt: PyPI Wheel
-    :target: https://pypi.org/project/odds-ratio-criterion
+    :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/odds-ratio-criterion.svg
+.. |supported-versions| image:: https://img.shields.io/badge/python-3.10-blue?style=flat
     :alt: Supported versions
-    :target: https://pypi.org/project/odds-ratio-criterion
+    :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/odds-ratio-criterion.svg
+.. |supported-implementations| image:: https://img.shields.io/badge/implementation-cpython-blue?style=flat
     :alt: Supported implementations
-    :target: https://pypi.org/project/odds-ratio-criterion
+    :target: https://test.pypi.org/project/odds-ratio-criterion
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/breezerider/odds-ratio-criterion/v0.1.0.svg
     :alt: Commits since latest release
