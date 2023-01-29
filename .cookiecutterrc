@@ -1,0 +1,69 @@
+# This file exists so you can easily regenerate your project.
+#
+# `cookiepatcher` is a convenient shim around `cookiecutter`
+# for regenerating projects (it will generate a .cookiecutterrc
+# automatically for any template). To use it:
+#
+#    pip install cookiepatcher
+#    cookiepatcher gh:ionelmc/cookiecutter-pylibrary odds_ratio_criterion
+#
+# See:
+#    https://pypi.org/project/cookiepatcher
+#
+# Alternatively, you can run:
+#
+#    cookiecutter --overwrite-if-exists --config-file=odds_ratio_criterion/.cookiecutterrc gh:ionelmc/cookiecutter-pylibrary
+
+default_context:
+    allow_tests_inside_package: 'no'
+    appveyor:                  'no'
+    c_extension_function:      'OddsCriterion'
+    c_extension_module:        '_odds_ratio_criterion'
+    c_extension_optional:      'no'
+    c_extension_support:       'cython'
+    c_extension_test_pypi:     'no'
+    c_extension_test_pypi_username: 'breezerider'
+    codacy:                    'no'
+    codacy_projectid:          '[Get ID from https://app.codacy.com/gh/breezerider/odds_ratio_criterion/settings]'
+    codeclimate:               'no'
+    codecov:                   'yes'
+    command_line_interface:    'no'
+    command_line_interface_bin_name: 'odds-ratio-criterion'
+    coveralls:                 'no'
+    distribution_name:         'odds-ratio-criterion'
+    email:                     'oleksandr.ostrenko@gmail.com'
+    full_name:                 'Oleksandr Ostrenko'
+    github_actions:            'yes'
+    github_actions_osx:        'no'
+    github_actions_windows:    'no'
+    license:                   'MIT license'
+    linter:                    'flake8'
+    package_name:              'odds_ratio_criterion'
+    pre_commit:                'no'
+    pre_commit_formatter:      'black'
+    project_name:              'odds_ratio_criterion'
+    project_short_description: 'Goodness-of-fit criterion based on probability ratios for scikit-learn decision trees.'
+    pypi_badge:                'yes'
+    pypi_disable_upload:       'no'
+    release_date:              'today'
+    repo_hosting:              'github.com'
+    repo_hosting_domain:       'github.com'
+    repo_main_branch:          'main'
+    repo_name:                 'odds_ratio_criterion'
+    repo_username:             'breezerider'
+    scrutinizer:               'no'
+    setup_py_uses_pytest_runner: 'no'
+    setup_py_uses_setuptools_scm: 'no'
+    sphinx_docs:               'yes'
+    sphinx_docs_hosting:       'https://odds_ratio_criterion.readthedocs.io/'
+    sphinx_doctest:            'no'
+    sphinx_theme:              'sphinx-rtd-theme'
+    test_matrix_configurator:  'no'
+    test_matrix_separate_coverage: 'no'
+    travis:                    'no'
+    travis_osx:                'no'
+    version:                   '0.1.0'
+    version_manager:           'bump2version'
+    website:                   'https://www.linkedin.com/in/oleksandr-ostrenko-28a0888/'
+    year_from:                 '2023'
+    year_to:                   '2023'
