@@ -5,5 +5,8 @@ odds_ratio_criterion
 
     from odds_ratio_criterion import *
 
-.. automodule:: odds_ratio_criterion
+.. autoclass:: odds_ratio_criterion.XNBoostClassifier
+    :members:
+
+.. autoclass:: odds_ratio_criterion.OddsRatioCriterion
     :members:

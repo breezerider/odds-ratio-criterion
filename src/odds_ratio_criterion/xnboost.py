@@ -1,3 +1,9 @@
+"""X^N Boost module.
+
+Module contains the :class:`~odds_ratio_criterion.XNBoostClassifier` that
+implements adaptive resampling for boosting unweighted ensembles of weak
+learners applied to classification problems.
+"""
 
 from numbers import Real
 
@@ -12,13 +18,60 @@ from sklearn.utils.validation import check_is_fitted
 
 
 class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
-    """An ARC-X4 classifier.
+    """An Adaptive Resampling and Combining (ARC) X^N classifier based on ARC-X4.
 
-    An Adaptive Resampling and Combining X^N classifier is based on the algorithm
-    proposed in [1] and follows the idea of adaptive resampling for boosting unweighted
-    ensembles of weak learners. The sample weights are adjusted according to total
-    misclassification over all the boosting steps.
+    An Adaptive Resampling and Combining X^N classifier is based on the
+    ARC-X4 algorithm [1]_ and follows the idea of adaptive resampling
+    for boosting unweighted ensembles of weak learners. The sample weights
+    are adjusted according to total misclassification over all the boosting
+    steps.
 
+    Parameters
+    ----------
+    estimator : object, default=None
+        The base estimator from which the boosted ensemble is built.
+        Support for sample weighting is required, as well as proper
+        ``classes_`` and ``n_classes_`` attributes. If ``None``, then
+        the base estimator is :class:`~sklearn.tree.DecisionTreeClassifier`
+        initialized with `max_depth=1`.
+
+    n_estimators : int, default=50
+        The maximum number of estimators at which boosting is terminated.
+        In case of perfect fit, the learning procedure is stopped early.
+        Values must be in the range `[1, inf)`.
+
+    learning_rate : float, default=1.0
+        Weight applied to each classifier at each boosting iteration. A higher
+        learning rate increases the contribution of each classifier. There is
+        a trade-off between the `learning_rate` and `n_estimators` parameters.
+        Values must be in the range `(0.0, inf)`.
+
+    loss_exponent : float, default=4.0
+        The value of power exponent used for computing sample weights based on
+        classification results from each of the weak learners in the ensemble.
+        Values must be in range `(0.0, inf)`.
+
+    random_state : int, RandomState instance or None, default=None
+        Controls the random seed given at each `estimator` at each
+        boosting iteration.
+        Thus, it is only used when `estimator` exposes a `random_state`.
+        Pass an int for reproducible output across multiple function calls.
+        See :class:`numpy:numpy.random.RandomState`.
+
+    Attributes
+    ----------
+    estimator_ : estimator
+        The base estimator from which the ensemble is grown.
+
+    estimators_ : list of classifiers
+        The collection of fitted sub-estimators.
+
+    classes_ : ndarray of shape (n_classes,)
+        The classes labels.
+
+    estimator_errors_ : ndarray of floats
+        Classification error for each estimator in the boosted
+        ensemble.
 
     References
     ----------

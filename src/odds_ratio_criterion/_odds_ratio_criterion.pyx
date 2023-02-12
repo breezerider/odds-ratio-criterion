@@ -12,10 +12,16 @@ from sklearn.tree._criterion cimport ClassificationCriterion
 
 cdef class OddsRatioCriterion(ClassificationCriterion):
   r"""Probability ratio based classification tree splitting criterion.
-  Designed for use cases where each target is a binary classification taking values 0, 1.
-  Given class counts N_{0,1}
+  Designed for use cases where each target is a binary classification.
+  Assuming class count for majority and minority class are :math:`N_{maj}`
+  and :math:`N_{min}`, respectively, the odds of a node in the split
+  with counts for current and other nodes denoted as :math:`N^{c,o}`:
 
-      odds = N_0 / (Y - N_0)
+      :math:`odds_{c} = \frac{N^{c}_{maj}+N^{o}_{maj}}{N^{c}_{min}+N^{o}_{min}}`
+
+  During split evaluation odds for left and right nodes are considered:
+
+      :math:`odds = odds_{l} \cdot odds_{r}`
   """
 
   cdef void odds(self,

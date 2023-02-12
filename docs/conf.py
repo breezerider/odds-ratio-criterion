@@ -11,6 +11,8 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.intersphinx',
 ]
 source_suffix = '.rst'
 master_doc = 'index'
@@ -31,6 +33,8 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if not on_rtd:  # only set the theme if we're building docs locally
     html_theme = 'sphinx_rtd_theme'
+
+intersphinx_mapping = {'numpy': ('https://docs.scipy.org/doc/numpy', None)}
 
 html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'
