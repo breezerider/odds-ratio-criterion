@@ -1,10 +1,11 @@
-#!/usr/bin/env python3
-# Classifier based on the arc-x4 algorithm from (Breiman, 1998)
+
+from numbers import Real
 
 import numpy as np
 from sklearn.base import ClassifierMixin
 from sklearn.ensemble._weight_boosting import BaseWeightBoosting
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.utils._param_validation import Interval
 from sklearn.utils.validation import _deprecate_positional_args
 from sklearn.utils.validation import _num_samples
 from sklearn.utils.validation import check_is_fitted
@@ -24,16 +25,21 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
     .. [1] Leo Breiman; Prediction Games and Arcing Algorithms. Neural Comput 1999; 11 (7): 1493–1517.
     """
 
+    _parameter_constraints: dict = {
+        **BaseWeightBoosting._parameter_constraints,
+        "loss_exponent": [Interval(Real, 0, None, closed="neither")],
+    }
+
     @_deprecate_positional_args
-    def __init__(self, base_estimator=None, *, n_estimators=50, learning_rate=1.0, loss_exponent=4, random_state=None):
+    def __init__(self, estimator=None, *, n_estimators=50, learning_rate=1.0, loss_exponent=4.0, random_state=None):
 
-        super().__init__(estimator=base_estimator, n_estimators=n_estimators, learning_rate=learning_rate, random_state=random_state)
+        super().__init__(estimator=estimator, n_estimators=n_estimators, learning_rate=learning_rate, random_state=random_state)
 
-        self.loss_exponent = 4 if loss_exponent is None else loss_exponent
+        self.loss_exponent = loss_exponent
 
     def _validate_estimator(self):
         """Check the estimator and set the base_estimator_ attribute."""
-        super(BaseWeightBoosting, self)._validate_estimator(default=DecisionTreeClassifier(max_depth=3))
+        super(BaseWeightBoosting, self)._validate_estimator(default=DecisionTreeClassifier(max_depth=1))
 
     def fit(self, X, y, sample_weight=None):
         """Build a boosted regressor from the training set (X, y).
@@ -61,10 +67,7 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
         # Fit
         c = super().fit(X, y, sample_weight)
 
-        self.indexes_ = None
-        self.missclassifications_ = None
-
-        # quit()
+        self.misclassifications_ = None
 
         return c
 
@@ -125,13 +128,11 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
         if estimator_error <= 0:
             return sample_weight, 1.0, 0.0
 
-        n_classes = self.n_classes_
-
         # Stop if the error is at least as bad as random guessing
-        if estimator_error >= 1.0 - (1.0 / n_classes):
+        if estimator_error >= 1.0 - (1.0 / self.n_classes_):
             self.estimators_.pop(-1)
             if len(self.estimators_) == 0:
-                raise ValueError('BaseClassifier in XNBoostClassifier ' 'ensemble is worse than random, ensemble ' 'can not be fit.')
+                raise ValueError('BaseClassifier in XNBoostClassifier ensemble is worse than random, ensemble can not be fit.')
             return None, None, None
 
         estimator_weight = None
@@ -139,7 +140,7 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
         # sample weights
         misclassifications = np.count_nonzero(self.misclassifications_, axis=0)
 
-        sample_weight = 1.0 + np.power(misclassifications, self.loss_exponent * self.learning_rate)
+        sample_weight = 1.0 + np.power(misclassifications, self.loss_exponent) * self.learning_rate
 
         return sample_weight, estimator_weight, estimator_error
 
@@ -161,18 +162,19 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
             The predicted regression values.
         """
         # Evaluate predictions of all estimators
-        predictions = np.asarray(self.predictions(X))
+        predictions = self._predictions(X)
 
-        if len(self.classes_) > 1:
+        if self.n_classes_ > 1:
             return self.classes_.take(np.median(predictions, axis=1).astype(dtype=int), axis=0)
         else:
             return np.repeat(self.classes_[0], (_num_samples(X)))
 
-    def predictions(self, X, limit=None):
+    def _predictions(self, X, limit=None):
+        """Provide predictions using at most limit members of the ensemble"""
         check_is_fitted(self)
         X = self._check_X(X)
 
-        limit = len(self.estimators_) if limit is None else limit
+        limit = np.clip(limit, 0, len(self.estimators_)) if limit else len(self.estimators_)
 
         # Evaluate predictions of all estimators
         return np.array([est.predict(X) for est in self.estimators_[:limit]]).T
