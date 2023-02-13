@@ -45,9 +45,9 @@ cdef class OddsRatioCriterion(ClassificationCriterion):
         odds_l[0] = (sum_left[0, 1] + sum_right[0, 0]) / (sum_left[0, 0] + sum_right[0, 1])
       # right node
       if(sum_right[0, 0] > sum_right[0, 1]):
-        odds_r[0] = (sum_right[0, 0] + sum_left[1, 0]) / (sum_right[1, 0] + sum_left[0, 0])
+        odds_r[0] = (sum_right[0, 0] + sum_left[0, 1]) / (sum_right[0, 1] + sum_left[0, 0])
       else:
-        odds_r[0] = (sum_right[1, 0] + sum_left[0, 0]) / (sum_right[0, 0] + sum_left[1, 0])
+        odds_r[0] = (sum_right[0, 1] + sum_left[0, 0]) / (sum_right[0, 0] + sum_left[0, 1])
 
   cdef double proxy_impurity_improvement(self) nogil:
     cdef double impurity_left
