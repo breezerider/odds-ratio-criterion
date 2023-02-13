@@ -141,7 +141,10 @@ jobs:
         TOXPYTHON: '${{ matrix.toxpython }}'
         CIBW_ARCHS: '${{ matrix.cibw_arch }}'
         CIBW_BUILD: '${{ matrix.cibw_build }}'
+        CIBW_SKIP: '*-arm64 *-musllinux_*'
         CIBW_BUILD_VERBOSITY: '3'
+        CIBW_BEFORE_BUILD_LINUX: >
+          yum install -y openblas-devel
         CIBW_TEST_REQUIRES: >
           tox
           tox-direct
