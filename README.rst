@@ -43,9 +43,9 @@ Overview
     :alt: Supported implementations
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/breezerider/odds-ratio-criterion/v0.2.0.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/breezerider/odds-ratio-criterion/v0.2.1.svg
     :alt: Commits since latest release
-    :target: https://github.com/breezerider/odds-ratio-criterion/compare/v0.2.0...main
+    :target: https://github.com/breezerider/odds-ratio-criterion/compare/v0.2.1...main
 
 
 

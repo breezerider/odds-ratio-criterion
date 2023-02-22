@@ -1,4 +1,4 @@
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 # PATCH sklearn
 from sklearn.tree import DecisionTreeClassifier

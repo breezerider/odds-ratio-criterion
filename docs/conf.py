@@ -20,7 +20,7 @@ project = 'odds_ratio_criterion'
 year = '2023'
 author = 'Oleksandr Ostrenko'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '0.2.0'
+version = release = '0.2.1'
 
 pygments_style = 'trac'
 templates_path = ['.']

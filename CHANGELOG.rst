@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.2.1 (2023-02-22)
+------------------
+
+* Fix inconsistent indexing in OddsRatioCriterion
+
 0.2.0 (2023-02-12)
 ------------------
 
