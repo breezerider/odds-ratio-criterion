@@ -85,8 +85,9 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
 
     @_deprecate_positional_args
     def __init__(self, estimator=None, *, n_estimators=50, learning_rate=1.0, loss_exponent=4.0, random_state=None):
-
-        super().__init__(estimator=estimator, n_estimators=n_estimators, learning_rate=learning_rate, random_state=random_state)
+        super().__init__(
+            estimator=estimator, n_estimators=n_estimators, learning_rate=learning_rate, random_state=random_state
+        )
 
         self.loss_exponent = loss_exponent
 
@@ -185,7 +186,9 @@ class XNBoostClassifier(ClassifierMixin, BaseWeightBoosting):
         if estimator_error >= 1.0 - (1.0 / self.n_classes_):
             self.estimators_.pop(-1)
             if len(self.estimators_) == 0:
-                raise ValueError('BaseClassifier in XNBoostClassifier ensemble is worse than random, ensemble can not be fit.')
+                raise ValueError(
+                    'BaseClassifier in XNBoostClassifier ensemble is worse than random, ensemble can not be fit.'
+                )
             return None, None, None
 
         estimator_weight = None

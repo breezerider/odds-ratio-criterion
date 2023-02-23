@@ -11,7 +11,7 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import parallel_backend
 
-import odds_ratio_criterion
+import odds_ratio_criterion  # noqa
 
 # parameters
 num_variables = 3

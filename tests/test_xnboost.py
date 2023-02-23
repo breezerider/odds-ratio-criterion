@@ -46,7 +46,10 @@ class XNBoostTestCase(unittest.TestCase):
         y = np.array(self.y_xor).T
 
         model = XNBoostClassifier(
-            estimator=DecisionTreeClassifier(max_depth=4, criterion="odds_ratio"), n_estimators=1, loss_exponent=4, random_state=42
+            estimator=DecisionTreeClassifier(max_depth=4, criterion="odds_ratio"),
+            n_estimators=1,
+            loss_exponent=4,
+            random_state=42,
         )
         model.fit(X, y)
 
@@ -57,7 +60,10 @@ class XNBoostTestCase(unittest.TestCase):
         y = np.array(self.y_fcn).T
 
         model = XNBoostClassifier(
-            estimator=DecisionTreeClassifier(max_depth=2, criterion="odds_ratio"), n_estimators=3, loss_exponent=4, random_state=42
+            estimator=DecisionTreeClassifier(max_depth=2, criterion="odds_ratio"),
+            n_estimators=3,
+            loss_exponent=4,
+            random_state=42,
         )
 
         model.fit(X, y)
@@ -69,11 +75,15 @@ class XNBoostTestCase(unittest.TestCase):
         y = np.array(self.y_xor).T
 
         model = XNBoostClassifier(
-            estimator=DecisionTreeClassifier(max_depth=1, criterion="odds_ratio"), n_estimators=1, loss_exponent=4, random_state=42
+            estimator=DecisionTreeClassifier(max_depth=1, criterion="odds_ratio"),
+            n_estimators=1,
+            loss_exponent=4,
+            random_state=42,
         )
         with self.assertRaises(ValueError) as context:
             model.fit(X, y)
 
         self.assertTrue(
-            'BaseClassifier in XNBoostClassifier ensemble is worse than random, ensemble can not be fit.' in str(context.exception)
+            'BaseClassifier in XNBoostClassifier ensemble is worse than random, ensemble can not be fit.'
+            in str(context.exception)
         )

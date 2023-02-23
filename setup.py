@@ -33,6 +33,7 @@ else:
 
 class BinaryDistribution(Distribution):
     """Distribution which almost always forces a binary package with platform name"""
+
     def has_ext_modules(self):
         return super().has_ext_modules() or not os.environ.get('SETUPPY_ALLOW_PURE')
 
@@ -89,14 +90,8 @@ setup(
         'Issue Tracker': 'https://github.com/breezerider/odds-ratio-criterion/issues',
     },
     python_requires='>=3.8',
-    install_requires=[
-        'scikit-learn>=1.2.0',
-        'numpy>=1.17.3'
-    ],
-    setup_requires=[
-        'cython',
-        'numpy'
-    ],
+    install_requires=['scikit-learn>=1.2.0', 'numpy>=1.17.3'],
+    setup_requires=['cython', 'numpy'],
     ext_modules=[
         Extension(
             'odds_ratio_criterion.odds_ratio_criterion',

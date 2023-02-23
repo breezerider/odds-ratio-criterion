@@ -11,4 +11,7 @@ from .odds_ratio_criterion import OddsRatioCriterion  # noqa
 from .xnboost import XNBoostClassifier  # noqa
 
 CRITERIA_CLF['odds_ratio'] = OddsRatioCriterion
-DecisionTreeClassifier._parameter_constraints["criterion"] = [StrOptions({"gini", "entropy", "log_loss", "odds_ratio"}), Hidden(Criterion)]
+DecisionTreeClassifier._parameter_constraints["criterion"] = [
+    StrOptions({"gini", "entropy", "log_loss", "odds_ratio"}),
+    Hidden(Criterion),
+]

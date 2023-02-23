@@ -58,7 +58,6 @@ for repetition_index in range(0, num_repetitions):
     Y_states = states[:, num_variables:]
 
     for variable_index in range(num_variables):
-
         model = XNBoostClassifier(
             DecisionTreeClassifier(
                 max_depth=tree_depth,
@@ -71,7 +70,10 @@ for repetition_index in range(0, num_repetitions):
         model.fit(X_trajectory, np.squeeze(Y_trajectory[:, variable_index]))
 
         report = classification_report(
-            np.squeeze(Y_states[:, variable_index]), model.predict(X_states), target_names=target_names, output_dict=True
+            np.squeeze(Y_states[:, variable_index]),
+            model.predict(X_states),
+            target_names=target_names,
+            output_dict=True,
         )
 
         precision[repetition_index, variable_index] = report["True"]["precision"]
