@@ -21,11 +21,13 @@ precision = np.zeros((num_repetitions, num_variables), dtype=float)
 recall = np.zeros((num_repetitions, num_variables), dtype=float)
 specificity = np.zeros((num_repetitions, num_variables), dtype=float)
 
-print(f"Running {num_repetitions} iterations of model fitting to trajectories "
-      f"with {trajectory_length} steps generated from a random "
-      f"binary transition map with {num_variables} variables using "
-      f"XNBoostClassifier with {num_trees} decision trees that were "
-      f"constructed with {splitting_criterion} and maximal depth {tree_depth}.")
+print(
+    f"Running {num_repetitions} iterations of model fitting to trajectories "
+    f"with {trajectory_length} steps generated from a random "
+    f"binary transition map with {num_variables} variables using "
+    f"XNBoostClassifier with {num_trees} decision trees that were "
+    f"constructed with {splitting_criterion} and maximal depth {tree_depth}."
+)
 
 for repetition_index in range(0, num_repetitions):
     random_seed = np.random.RandomState(repetition_index)
@@ -34,18 +36,18 @@ for repetition_index in range(0, num_repetitions):
     random_seed.shuffle(transition_map)
 
     index = random_seed.randint(0, 2**num_variables)
-    trajectory = np.zeros((trajectory_length, 2*num_variables), dtype=bool)
+    trajectory = np.zeros((trajectory_length, 2 * num_variables), dtype=bool)
     for step in range(0, trajectory_length):
-        for number, offset in [(index, num_variables), (transition_map[index], 2*num_variables)]:
+        for number, offset in [(index, num_variables), (transition_map[index], 2 * num_variables)]:
             for shift_index in range(int(number).bit_length()):
-                trajectory[step, offset-shift_index-1] = (number >> shift_index) & 1
+                trajectory[step, offset - shift_index - 1] = (number >> shift_index) & 1
         index = transition_map[index]
 
-    states = np.zeros((2**num_variables, 2*num_variables), dtype=bool)
+    states = np.zeros((2**num_variables, 2 * num_variables), dtype=bool)
     for step in range(0, 2**num_variables):
-        for number, offset in [(step, num_variables), (transition_map[step], 2*num_variables)]:
+        for number, offset in [(step, num_variables), (transition_map[step], 2 * num_variables)]:
             for shift_index in range(int(number).bit_length()):
-                states[step, offset-shift_index-1] = (number >> shift_index) & 1
+                states[step, offset - shift_index - 1] = (number >> shift_index) & 1
 
     # model fitting
     X_trajectory = trajectory[:, :num_variables]
@@ -69,10 +71,7 @@ for repetition_index in range(0, num_repetitions):
         model.fit(X_trajectory, np.squeeze(Y_trajectory[:, variable_index]))
 
         report = classification_report(
-            np.squeeze(Y_states[:, variable_index]),
-            model.predict(X_states),
-            target_names=target_names,
-            output_dict=True
+            np.squeeze(Y_states[:, variable_index]), model.predict(X_states), target_names=target_names, output_dict=True
         )
 
         precision[repetition_index, variable_index] = report["True"]["precision"]
