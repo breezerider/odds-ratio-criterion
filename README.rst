@@ -13,7 +13,7 @@ Overview
       - | |github-actions|
         | |codecov|
     * - package
-      - | |version| |wheel| |supported-versions| |supported-implementations|
+      - | |license| |version| |wheel| |supported-versions| |supported-implementations|
         | |commits-since|
 .. |docs| image:: https://readthedocs.org/projects/odds-ratio-criterion/badge/?style=flat
     :target: https://odds-ratio-criterion.readthedocs.io/
@@ -27,19 +27,23 @@ Overview
     :alt: Coverage Status
     :target: https://codecov.io/github/breezerider/odds-ratio-criterion
 
-.. |version| image:: https://img.shields.io/badge/test.pypi-v0.1.0-green?style=flat
+.. |license| image:: https://img.shields.io/badge/license-BSD-green?style=flat
+    :alt: PyPI Package license
+    :target: https://test.pypi.org/project/odds-ratio-criterion
+
+.. |version| image:: https://img.shields.io/badge/test.pypi-v0.1.0-informational?style=flat
     :alt: PyPI Package latest release
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |wheel| image:: https://img.shields.io/badge/wheel-no-red?style=flat
+.. |wheel| image:: https://img.shields.io/badge/wheel-yes-success?style=flat
     :alt: PyPI Wheel
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |supported-versions| image:: https://img.shields.io/badge/python-3.10-blue?style=flat
+.. |supported-versions| image:: https://img.shields.io/badge/python-3.8_|_3.9_|_3.10_|_3.11-informational?style=flat
     :alt: Supported versions
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |supported-implementations| image:: https://img.shields.io/badge/implementation-cpython-blue?style=flat
+.. |supported-implementations| image:: https://img.shields.io/badge/implementation-cpython-informational?style=flat
     :alt: Supported implementations
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
@@ -52,6 +56,8 @@ Overview
 .. end-badges
 
 Goodness-of-fit criterion based on probability ratios for scikit-learn decision trees.
+Applicable when all classification targets are binary.
+The criterion consistently outperfoms other criteria when few data points are given and the complexity of the CART classifiers is limited.
 
 * Free software: BSD license
 
