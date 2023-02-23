@@ -25,5 +25,6 @@ include src/odds_ratio_criterion/__init__.py
 exclude src/odds_ratio_criterion/_odds_ratio_criterion.c
 
 include examples/random_map.py
+include examples/parameter_grid_cv.py
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib
