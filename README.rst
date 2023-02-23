@@ -31,7 +31,7 @@ Overview
     :alt: PyPI Package license
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |version| image:: https://img.shields.io/badge/test.pypi-v0.1.0-informational?style=flat
+.. |version| image:: https://img.shields.io/badge/test.pypi-v0.3.0-informational?style=flat
     :alt: PyPI Package latest release
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
@@ -47,9 +47,9 @@ Overview
     :alt: Supported implementations
     :target: https://test.pypi.org/project/odds-ratio-criterion
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/breezerider/odds-ratio-criterion/v0.2.1.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/breezerider/odds-ratio-criterion/v0.3.0.svg
     :alt: Commits since latest release
-    :target: https://github.com/breezerider/odds-ratio-criterion/compare/v0.2.1...main
+    :target: https://github.com/breezerider/odds-ratio-criterion/compare/v0.3.0...main
 
 
 

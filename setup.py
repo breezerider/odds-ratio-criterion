@@ -45,7 +45,7 @@ def read(*names, **kwargs):
 
 setup(
     name='odds-ratio-criterion',
-    version='0.2.1',
+    version='0.3.0',
     license='new BSD',
     description='Goodness-of-fit criterion based on probability ratios for scikit-learn decision trees.',
     long_description='{}\n{}'.format(
