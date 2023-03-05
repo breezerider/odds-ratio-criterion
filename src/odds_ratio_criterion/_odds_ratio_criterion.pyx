@@ -21,10 +21,9 @@ cdef class OddsRatioCriterion(ClassificationCriterion):
   where :math:`N^{c,o}_{.}` represent counts for current and other leaf node.
   During split evaluation odds for left and right nodes are considered:
 
-      :math:`odds = odds_{l} \cdot odds_{r}`
+      :math:`odds = \min \lbrace odds_{l} \cdot odds_{r} \rbrace`
 
-  Only non-trivial splits (:math:`odds > 1`) are considered and ranked by
-  :math:`odds` value.
+  The splits are then ranked by :math:`odds` value.
   """
 
   cdef void odds(self,
@@ -37,10 +36,7 @@ cdef class OddsRatioCriterion(ClassificationCriterion):
     cdef double[:, ::1] sum_left = self.sum_left
     cdef double[:, ::1] sum_right = self.sum_right
 
-    if (sum_left[0, 0] + sum_right[0, 0] == 0.0) or (sum_left[0, 1] + sum_right[0, 1] == 0.0):
-      odds_l[0] = -INFINITY
-      odds_r[0] = -INFINITY
-    else:
+    if (sum_left[0, 0] + sum_right[0, 0] != 0.0) and (sum_left[0, 1] + sum_right[0, 1] != 0.0):
       # left node
       if(sum_left[0, 0] > sum_left[0, 1]):
         odds_l[0] = (sum_left[0, 0] + sum_right[0, 1]) / (sum_left[0, 1] + sum_right[0, 0])
@@ -58,22 +54,23 @@ cdef class OddsRatioCriterion(ClassificationCriterion):
 
     self.children_impurity(&impurity_left, &impurity_right)
 
-    return impurity_left * impurity_right - 1.0
+    return min(impurity_left, impurity_right)
 
   cdef double impurity_improvement(self,
                                    double impurity_parent,
                                    double impurity_left,
                                    double impurity_right) nogil:
     """Compute the impurity impurity_improvement.
-    The product is meant to penalize for trivial splits, where the odds of each child nodes are reciprocal.
+    Odds in even splits are distributed evenly between left and right nodes.
+    To penalize for uneven splitting, choose the lowest of leaf node values.
     """
-    return impurity_left * impurity_right
+    return min(impurity_left, impurity_right)
 
   cdef double node_impurity(self) nogil:
     """Evaluate the impurity of the current node.
-    Odds ratio has no practical sense for a node, hence return a stub.
+    Odds ratio has no practical sense for a node, hence return a pre-set value.
     """
-    return INFINITY
+    return 1.0
 
   cdef void children_impurity(self,
                               double* impurity_left,
