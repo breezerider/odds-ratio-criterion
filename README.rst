@@ -25,7 +25,7 @@ Overview
 
 .. |codecov| image:: https://codecov.io/gh/breezerider/odds-ratio-criterion/branch/main/graphs/badge.svg?branch=main
     :alt: Coverage Status
-    :target: https://codecov.io/github/breezerider/odds-ratio-criterion
+    :target: https://app.codecov.io/github/breezerider/odds-ratio-criterion
 
 .. |license| image:: https://img.shields.io/badge/license-BSD-green?style=flat
     :alt: PyPI Package license
