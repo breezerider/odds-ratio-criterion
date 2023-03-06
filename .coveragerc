@@ -4,6 +4,7 @@ source = src
 omit =
     tests
     *__init__.py
+    *__init__.pxd
 parallel = true
 plugins = Cython.Coverage
 

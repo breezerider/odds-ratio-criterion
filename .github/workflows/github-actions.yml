@@ -182,11 +182,13 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: |
-          export CFLAGS="-DCYTHON_TRACE_NOGIL=1"
-          python -mpip install --progress-bar=off .
-          python -mpip install --progress-bar=off Cython pytest pytest-cov
+          python -mpip install --progress-bar=off -r ci/requirements.txt
+          virtualenv --version
+          pip --version
+          tox --version
+          pip list --format=freeze
       - name: Run tests and collect coverage
-        run: pytest --cov odds_ratio_criterion --cov-report term --cov-report xml:coverage.xml
+        run: tox -e py310-cover,report -v
       - name: Upload coverage to Codecov
         env:
           CODECOV_TOKEN: '${{ secrets.CODECOV_TOKEN }}'

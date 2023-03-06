@@ -24,7 +24,7 @@ except ImportError:
 # dependencies (e.g. numpy). Therefore we set SETUPPY_CFLAGS=-coverage in tox.ini and copy it to CFLAGS here (after
 # deps have been safely installed).
 if 'TOX_ENV_NAME' in os.environ and os.environ.get('SETUPPY_EXT_COVERAGE') == 'yes':
-    CFLAGS = os.environ['CFLAGS'] = '-DCYTHON_TRACE=1'
+    CFLAGS = os.environ['CFLAGS'] = '-DCYTHON_TRACE_NOGIL=1'
     LFLAGS = os.environ['LFLAGS'] = ''
 else:
     CFLAGS = ''
